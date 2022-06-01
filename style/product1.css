@@ -311,7 +311,7 @@ header {
 }
 /* 遊戲 */
 @media screen and (max-width: 1200px) {
-  .contain {
+  .game {
     display: none;
   }
 }
