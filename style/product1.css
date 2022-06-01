@@ -315,11 +315,17 @@ header {
     display: none;
   }
 }
+.player {
+  position: relative;
+  top: -10em;
+}
 .contain {
   width: 1200px;
   height: 700px;
   background: url(../images/2.png) center center / cover;
   position: relative;
+  top: -5rem;
+  transform: scale(0.5);
 }
 .crab {
   position: absolute;
