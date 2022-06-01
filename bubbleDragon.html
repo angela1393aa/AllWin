@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bubble Dragon Game</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      canvas {
+        background: #eee;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="480" height="320"></canvas>
+    <script>
+      canvas = document.getElementById("myCanvas");
+      ctx = canvas.getContext("2d");
+
+      //   ctx.beginPath(); //開始
+      //   ctx.rect(20, 40, 50, 50); //一個矩形x,y,寬,高
+      //   ctx.fillStyle = "#FF0000"; //儲存的顏色
+      //   ctx.fill(); //塗滿
+      //   ctx.closePath(); //結束
+
+      //   ctx.beginPath();
+      //   ctx.arc(240, 160, 20, 0, Math.PI * 2, false); //中心點x,中心點y,半徑,從開始到結束的角度,方向(false代表順時針方向,true為逆時針方向)
+      //   ctx.strokeStyle = "rgba(0, 0, 255, 0.5)"; //外輪廓線儲存的顏色
+      //   ctx.stroke(); //外輪廓線上色
+      //   ctx.closePath();
+      let ballRadius = 10; //球的半徑
+      let x = canvas.width / 2; //球的位置
+      let y = canvas.height - 30; //球的位置
+      let dx = 2; //控制球的位置
+      let dy = -2; //控制球的位置
+
+      var paddleHeight = 10; //槳的高
+      var paddleWidth = 75; //槳的寬
+      var paddleX = (canvas.width - paddleWidth) / 2; //在軸上的起點
+      var rightPressed = false; //沒有按下控制按鈕預設false
+      var leftPressed = false; //沒有按下控制按鈕預設false
+
+      document.addEventListener("keydown", keyDownHandler, false); //按下它們時
+      document.addEventListener("keyup", keyUpHandler, false); //當按鍵停止按下時
+
+      function keyDownHandler(e) {
+        if (e.key == "Right" || e.key == "ArrowRight") {
+          rightPressed = true; //按下設為false
+        } else if (e.key == "Left" || e.key == "ArrowLeft") {
+          leftPressed = true; //按下設為false
+        }
+      }
+
+      function keyUpHandler(e) {
+        if (e.key == "Right" || e.key == "ArrowRight") {
+          rightPressed = false; //放開設為false
+        } else if (e.key == "Left" || e.key == "ArrowLeft") {
+          leftPressed = false; //放開設為false
+        }
+      }
+      //畫一個球
+      function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI * 2); //畫一個球
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+      }
+      //畫一個槳
+      function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(
+          paddleX,
+          canvas.height - paddleHeight,
+          paddleWidth,
+          paddleHeight
+        );
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+      }
+      //控制移動
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); //清除畫布
+        drawBall();
+        drawPaddle();
+        //球的中心點碰到牆壁才反彈
+        // if (y + dy > canvas.height || y + dy < 0) {
+        //   dy = -dy;
+        // }
+        // if (x + dx > canvas.width || x + dx < 0) {
+        //   dx = -dx;
+        // }
+        //球的中心點外圍碰到牆壁反彈
+        if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+          dx = -dx;
+        }
+        // if (y + dy > canvas.height - ballRadius || y + dy < ballRadius) {
+        //   dy = -dy;
+        // }
+        //擊中底牆將結束遊戲讓球拍擊球
+        if (y + dy < ballRadius) {
+          dy = -dy;
+        } else if (y + dy > canvas.height - ballRadius) {
+          if (x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+          } else {
+            alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval);
+          }
+        }
+
+        if (rightPressed) {
+          paddleX += 7; //如果按下右光標，槳將向右移動 7 個像素
+          if (paddleX + paddleWidth > canvas.width) {
+            paddleX = canvas.width - paddleWidth;
+          }
+        } else if (leftPressed) {
+          paddleX -= 7; //如果按下左光標，槳將向左移動 7 個像素
+          if (paddleX < 0) {
+            paddleX = 0;
+          }
+        }
+
+        x += dx; //改變球中心點
+        y += dy; //改變球中心點
+      }
+
+      setInterval(draw, 10);
+    </script>
+  </body>
+</html>

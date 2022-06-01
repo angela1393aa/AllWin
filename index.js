@@ -32,7 +32,7 @@ function drawHouse() {
 btn.onclick = () => {
   arr = false;
   crab.style.top = "10rem";
-  start.style.background = "url(../images/4-1.png)";
+  start.style.background = "url(./images/4-1.png)";
   setInterval(drawGameover, 1000);
   function drawGameover() {
     gameover.style.display = "block";
