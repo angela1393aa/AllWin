@@ -48,6 +48,47 @@
         opacity: 0.8;
         display: none;
       }
+
+      */ .tab-inner-title {
+        font-size: 1.25rem;
+        position: absolute;
+        top: 2rem;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+      .text1 {
+        width: 8ch;
+      }
+      .text2 {
+        width: 98ch; /* 關係到結束位置 */
+      }
+      .text3 {
+        width: 90ch; /* 關係到結束位置 */
+      }
+      .ani-typewriter {
+        display: block;
+        white-space: nowrap; /* 不要換行 */
+        /* overflow: hidden;  */
+        /* 把後面的字隱藏 */
+        border-right: 2px solid #000;
+        animation: typing 1s steps(10, end) 1,
+          cursor-blink 0.2s step-end infinite alternate;
+      }
+
+      /*  Animations  
+----------------------------------------  */
+      /* 字的顯示 */
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+      }
+      /* 打字 */
+      @keyframes cursor-blink {
+        50% {
+          border-color: transparent;
+        }
+      }
     </style>
   </head>
   <body>
@@ -92,6 +133,29 @@
         <img class="rocker" src="./images/3-unscreen.gif" alt="搖桿" />
         <img class="start" id="btn" src="./images/4-2.png" alt="開始" />
         <img class="gameover" src="./images/5.png" alt="gameover" />
+      </div>
+      <div class="conpyright">
+        <audio
+          id="player"
+          autoplay="autoplay"
+          controls="controls"
+          loop="loop"
+          preload="auto"
+          src="./roa-music-pixel-story.mp3"
+        >
+          你的瀏覽器版本太低，不支援audio標籤
+        </audio>
+        <div class="tab-inner-title ani-typewriter text1">音樂來源:</div>
+        <br />
+        <div class="tab-inner-title ani-typewriter text2">
+          Pixel Story by Roa Music | https://soundcloud.com/roa_music1031 Music
+          promoted by https://www.free-stock-music.com
+        </div>
+        <br />
+        <div class="tab-inner-title ani-typewriter text3">
+          Creative Commons Attribution 3.0 Unported License
+          https://creativecommons.org/licenses/by/3.0/deed.en_US
+        </div>
       </div>
     </div>
 
